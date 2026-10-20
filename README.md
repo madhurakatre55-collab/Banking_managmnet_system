@@ -8,6 +8,7 @@
 
 The web prototype server is **currently live and running**:
 - **Runnable Web Application Link:** [http://localhost:8080](http://localhost:8080)
+- deployed link - [https://banking-managmnet-system.onrender.com](https://banking-managmnet-system.onrender.com)
 
 ### One-Click Launchers (In Project Folder):
 1. **`run.bat`**: Compiles and launches both Desktop Swing GUI and Web browser interface.
