@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apex Banking System - OOP Java Mini Project</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="21" x2="21" y2="21"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <polyline points="5 6 12 3 19 6"></polyline>
+            <line x1="4" y1="10" x2="4" y2="21"></line>
+            <line x1="20" y1="10" x2="20" y2="21"></line>
+            <line x1="8" y1="14" x2="8" y2="17"></line>
+            <line x1="12" y1="14" x2="12" y2="17"></line>
+            <line x1="16" y1="14" x2="16" y2="17"></line>
+          </svg>
+        </div>
+        <div>
+          <h2>Apex Bank</h2>
+          <span>OOP in Java • JDBC Prototype</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <button class="nav-item active" data-tab="tab-dashboard">
+          <span class="icon">📊</span>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-item" data-tab="tab-create">
+          <span class="icon">➕</span>
+          <span>Create Account</span>
+        </button>
+        <button class="nav-item" data-tab="tab-deposit">
+          <span class="icon">💵</span>
+          <span>Deposit Money</span>
+        </button>
+        <button class="nav-item" data-tab="tab-withdraw">
+          <span class="icon">💳</span>
+          <span>Withdraw Money</span>
+          <span class="badge-pill">Limit Protected</span>
+        </button>
+        <button class="nav-item" data-tab="tab-balance">
+          <span class="icon">🔍</span>
+          <span>Check Balance</span>
+        </button>
+        <button class="nav-item" data-tab="tab-info">
+          <span class="icon">👤</span>
+          <span>Account Information</span>
+        </button>
+        <button class="nav-item" data-tab="tab-directory">
+          <span class="icon">📋</span>
+          <span>Accounts Directory</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="db-status-badge">
+          <span class="pulse-dot"></span>
+          <span>JDBC Database: Connected</span>
+        </div>
+        <p class="academic-note">BTech Mini Project • OOP Java</p>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div class="page-title">
+          <h1 id="page-header-title">Dashboard Overview</h1>
+          <p id="page-header-desc">Welcome to the Banking Management System prototype</p>
+        </div>
+        <div class="top-actions">
+          <div class="quick-demo-dropdown">
+            <button id="quick-demo-btn" class="btn-demo">
+              ⚡ Quick Fill Demo Account
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Alert notification container -->
+      <div id="alert-box" class="alert hidden"></div>
+
+      <!-- TAB 1: DASHBOARD -->
+      <section id="tab-dashboard" class="tab-pane active">
+        <div class="hero-card">
+          <div class="hero-text">
+            <h2>Banking System Management Console</h2>
+            <p>Developed with core Object-Oriented Programming (OOP) principles in Java, JDBC Database layer, and full-stack interactive client.</p>
+            <div class="hero-tags">
+              <span class="tag">Abstraction</span>
+              <span class="tag">Encapsulation</span>
+              <span class="tag">Inheritance</span>
+              <span class="tag">Polymorphism</span>
+              <span class="tag">Daily Limit Protection</span>
+              <span class="tag">JDBC PreparedStatement</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <span class="metric-icon blue">🏦</span>
+            <div class="metric-info">
+              <span class="metric-label">Registered Accounts</span>
+              <h3 id="stat-total-accounts">--</h3>
+            </div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-icon green">💰</span>
+            <div class="metric-info">
+              <span class="metric-label">Total Vault Reserves</span>
+              <h3 id="stat-total-reserves">--</h3>
+            </div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-icon red">🛡️</span>
+            <div class="metric-info">
+              <span class="metric-label">Daily Limit Policy</span>
+              <h3>Active & Enforced</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">
+          <h3>Required System Operations</h3>
+        </div>
+
+        <div class="ops-grid">
+          <div class="op-card" onclick="switchTab('tab-create')">
+            <div class="op-header">
+              <span class="op-icon">➕</span>
+              <h4>1. Create an Account</h4>
+            </div>
+            <p>Register new Savings or Current accounts with custom initial deposit and daily limits.</p>
+            <span class="op-link">Open Operation &rarr;</span>
+          </div>
+
+          <div class="op-card" onclick="switchTab('tab-deposit')">
+            <div class="op-header">
+              <span class="op-icon">💵</span>
+              <h4>2. Deposit Money</h4>
+            </div>
+            <p>Credit funds with real-time balance calculations and transactional database logging.</p>
+            <span class="op-link">Open Operation &rarr;</span>
+          </div>
+
+          <div class="op-card" onclick="switchTab('tab-withdraw')">
+            <div class="op-header">
+              <span class="op-icon">💳</span>
+              <h4>3 & 4. Withdraw & Honor Daily Limit</h4>
+            </div>
+            <p>Withdraw money while strictly checking balance constraints and per-day limit quota.</p>
+            <span class="op-link">Open Operation &rarr;</span>
+          </div>
+
+          <div class="op-card" onclick="switchTab('tab-balance')">
+            <div class="op-header">
+              <span class="op-icon">🔍</span>
+              <h4>5. Check the Balance</h4>
+            </div>
+            <p>Fast PIN-authenticated balance and daily remaining limit lookup.</p>
+            <span class="op-link">Open Operation &rarr;</span>
+          </div>
+
+          <div class="op-card" onclick="switchTab('tab-info')">
+            <div class="op-header">
+              <span class="op-icon">👤</span>
+              <h4>6. Display Account Information</h4>
+            </div>
+            <p>View full customer profile, account type specifics, and passbook statement ledger.</p>
+            <span class="op-link">Open Operation &rarr;</span>
+          </div>
+
+          <div class="op-card" onclick="switchTab('tab-directory')">
+            <div class="op-header">
+              <span class="op-icon">📋</span>
+              <h4>DBMS Accounts Directory</h4>
+            </div>
+            <p>Comprehensive tabular view of all accounts loaded directly from the database.</p>
+            <span class="op-link">Open Operation &rarr;</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: CREATE AN ACCOUNT -->
+      <section id="tab-create" class="tab-pane">
+        <div class="card form-card">
+          <div class="card-header">
+            <h3>Open a New Bank Account</h3>
+            <p>Fill in applicant details to create an account in the database.</p>
+          </div>
+          <form id="create-account-form" onsubmit="handleCreateAccount(event)">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="create-name">Account Holder Full Name <span class="req">*</span></label>
+                <input type="text" id="create-name" required placeholder="e.g. Ramesh Patel">
+              </div>
+
+              <div class="form-group">
+                <label for="create-type">Account Type <span class="req">*</span></label>
+                <select id="create-type" onchange="onAccountTypeChanged()">
+                  <option value="SAVINGS" selected>Savings Account (Min. Balance ₹1,000 | 4% Interest)</option>
+                  <option value="CURRENT">Current Account (Min. Balance ₹5,000 | Overdraft ₹25,000)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="create-email">Email Address</label>
+                <input type="email" id="create-email" placeholder="ramesh@example.com">
+              </div>
+
+              <div class="form-group">
+                <label for="create-phone">Phone Number</label>
+                <input type="tel" id="create-phone" placeholder="9876543210">
+              </div>
+
+              <div class="form-group">
+                <label for="create-pin">4-Digit Security PIN <span class="req">*</span></label>
+                <input type="password" id="create-pin" maxlength="6" required placeholder="e.g. 1234">
+                <small class="helper-text">Required for withdrawals and balance inquiries</small>
+              </div>
+
+              <div class="form-group">
+                <label for="create-deposit">Initial Deposit Amount (₹) <span class="req">*</span></label>
+                <input type="number" id="create-deposit" min="1000" step="100" value="5000" required>
+                <small id="deposit-hint" class="helper-text">Minimum initial deposit: ₹1,000.00</small>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="create-limit">Configured Daily Withdrawal Limit (₹) <span class="req">*</span></label>
+                <input type="number" id="create-limit" min="1000" step="500" value="25000" required>
+                <small id="limit-hint" class="helper-text">Maximum total cash withdrawal allowed per calendar day</small>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="reset" class="btn btn-secondary">Clear Form</button>
+              <button type="submit" class="btn btn-primary">Create Account</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- TAB 3: DEPOSIT MONEY -->
+      <section id="tab-deposit" class="tab-pane">
+        <div class="card form-card">
+          <div class="card-header">
+            <h3>Deposit Money</h3>
+            <p>Credit funds directly into an account with instant ledger recording.</p>
+          </div>
+          <form id="deposit-form" onsubmit="handleDeposit(event)">
+            <div class="form-group">
+              <label for="deposit-acc">Account Number <span class="req">*</span></label>
+              <div class="input-with-button">
+                <input type="text" id="deposit-acc" required placeholder="Enter 10-digit Account Number">
+                <button type="button" class="btn btn-secondary" onclick="quickVerifyAccount('deposit-acc')">Check</button>
+              </div>
+            </div>
+
+            <div id="deposit-account-preview" class="account-preview-box hidden"></div>
+
+            <div class="form-group">
+              <label for="deposit-amount">Deposit Amount (₹) <span class="req">*</span></label>
+              <input type="number" id="deposit-amount" min="1" step="any" required placeholder="e.g. 5000.00">
+            </div>
+
+            <div class="form-group">
+              <label for="deposit-desc">Transaction Remark</label>
+              <input type="text" id="deposit-desc" value="Online Cash Deposit">
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-success">Deposit Money</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- TAB 4: WITHDRAW MONEY & HONOR DAILY LIMIT -->
+      <section id="tab-withdraw" class="tab-pane">
+        <div class="card form-card">
+          <div class="card-header">
+            <h3>Withdraw Money (Daily Limit Enforced)</h3>
+            <p>Withdraw cash while strictly enforcing account minimums and the daily withdrawal quota.</p>
+          </div>
+
+          <div class="policy-callout">
+            <div class="policy-icon">🛡️</div>
+            <div>
+              <strong>Daily Withdrawal Limit Protection:</strong>
+              <p>The system automatically tracks today's cumulative withdrawals and blocks any attempt exceeding the configured daily quota. Daily counters automatically roll over at midnight.</p>
+            </div>
+          </div>
+
+          <form id="withdraw-form" onsubmit="handleWithdraw(event)">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="withdraw-acc">Account Number <span class="req">*</span></label>
+                <input type="text" id="withdraw-acc" required placeholder="Enter Account Number">
+              </div>
+
+              <div class="form-group">
+                <label for="withdraw-pin">4-Digit Security PIN <span class="req">*</span></label>
+                <input type="password" id="withdraw-pin" required placeholder="PIN">
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-secondary mb-3" onclick="checkWithdrawalStatus()">
+              🔍 Check Current Balance & Remaining Daily Limit
+            </button>
+
+            <!-- Dynamic Limit Gauge -->
+            <div id="withdraw-limit-gauge" class="limit-gauge-card hidden">
+              <div class="gauge-header">
+                <div>
+                  <span class="gauge-title" id="gauge-holder-name">Rahul Sharma</span>
+                  <span class="badge" id="gauge-acc-type">SAVINGS</span>
+                </div>
+                <div class="gauge-balance" id="gauge-current-balance">Balance: ₹25,000.00</div>
+              </div>
+
+              <div class="gauge-metrics">
+                <div>
+                  <span class="g-lbl">Configured Daily Limit</span>
+                  <strong id="gauge-limit-val">₹25,000.00</strong>
+                </div>
+                <div>
+                  <span class="g-lbl">Withdrawn Today</span>
+                  <strong id="gauge-used-val">₹3,000.00</strong>
+                </div>
+                <div>
+                  <span class="g-lbl">Remaining Limit for Today</span>
+                  <strong id="gauge-remain-val" class="highlight-amber">₹22,000.00</strong>
+                </div>
+              </div>
+
+              <div class="progress-bar-container">
+                <div id="gauge-progress-bar" class="progress-bar-fill" style="width: 12%;"></div>
+              </div>
+              <small id="gauge-usage-text" class="helper-text">12.0% of today's limit used</small>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="withdraw-amount">Withdrawal Amount (₹) <span class="req">*</span></label>
+              <input type="number" id="withdraw-amount" min="1" step="any" required placeholder="e.g. 2000.00">
+            </div>
+
+            <div class="form-group">
+              <label for="withdraw-desc">Transaction Remark</label>
+              <input type="text" id="withdraw-desc" value="ATM / Branch Cash Withdrawal">
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-danger">Authorize & Withdraw</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- TAB 5: CHECK THE BALANCE -->
+      <section id="tab-balance" class="tab-pane">
+        <div class="card form-card">
+          <div class="card-header">
+            <h3>Check Account Balance</h3>
+            <p>Fast and secure balance inquiry with PIN authentication.</p>
+          </div>
+          <form id="balance-form" onsubmit="handleCheckBalance(event)">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="balance-acc">Account Number <span class="req">*</span></label>
+                <input type="text" id="balance-acc" required placeholder="Enter Account Number">
+              </div>
+
+              <div class="form-group">
+                <label for="balance-pin">4-Digit Security PIN <span class="req">*</span></label>
+                <input type="password" id="balance-pin" required placeholder="Enter PIN">
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Check Balance</button>
+            </div>
+          </form>
+
+          <div id="balance-result-card" class="balance-result-card hidden">
+            <div class="balance-display-banner">
+              <span class="b-lbl">TOTAL AVAILABLE BALANCE</span>
+              <h2 id="balance-result-amount">₹0.00</h2>
+            </div>
+
+            <div class="balance-details-grid">
+              <div class="detail-item">
+                <span class="d-lbl">Account Holder</span>
+                <span class="d-val" id="bal-holder">--</span>
+              </div>
+              <div class="detail-item">
+                <span class="d-lbl">Account Number</span>
+                <span class="d-val font-mono" id="bal-acc-num">--</span>
+              </div>
+              <div class="detail-item">
+                <span class="d-lbl">Account Type</span>
+                <span class="d-val" id="bal-type">--</span>
+              </div>
+              <div class="detail-item">
+                <span class="d-lbl">Account Status</span>
+                <span class="badge badge-active" id="bal-status">ACTIVE</span>
+              </div>
+              <div class="detail-item">
+                <span class="d-lbl">Configured Daily Limit</span>
+                <span class="d-val" id="bal-limit">--</span>
+              </div>
+              <div class="detail-item">
+                <span class="d-lbl">Today's Remaining Limit</span>
+                <span class="d-val highlight-amber" id="bal-remain">--</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: DISPLAY ACCOUNT INFORMATION & STATEMENT -->
+      <section id="tab-info" class="tab-pane">
+        <div class="card form-card">
+          <div class="card-header">
+            <h3>Display Account Information & Passbook Statement</h3>
+            <p>Comprehensive customer profile details and ledger transaction history.</p>
+          </div>
+          <form id="info-form" onsubmit="handleFetchAccountInfo(event)">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="info-acc">Account Number <span class="req">*</span></label>
+                <input type="text" id="info-acc" required placeholder="Enter Account Number">
+              </div>
+
+              <div class="form-group">
+                <label for="info-pin">Security PIN (Optional / Bank View)</label>
+                <input type="password" id="info-pin" placeholder="PIN (if available)">
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Display Account Details</button>
+            </div>
+          </form>
+
+          <!-- Account Profile Display -->
+          <div id="account-info-display" class="account-info-display hidden">
+            <div class="profile-header-banner">
+              <div class="avatar-circle" id="profile-avatar">RS</div>
+              <div>
+                <h3 id="profile-name">--</h3>
+                <p id="profile-type-num">SAVINGS ACCOUNT • #--</p>
+              </div>
+              <div class="balance-badge-top">
+                <span class="small-title">Current Balance</span>
+                <strong id="profile-balance">₹0.00</strong>
+              </div>
+            </div>
+
+            <div class="profile-meta-grid">
+              <div class="meta-item">
+                <span class="m-lbl">Email Address</span>
+                <span class="m-val" id="profile-email">--</span>
+              </div>
+              <div class="meta-item">
+                <span class="m-lbl">Phone Number</span>
+                <span class="m-val" id="profile-phone">--</span>
+              </div>
+              <div class="meta-item">
+                <span class="m-lbl">Daily Withdrawal Limit</span>
+                <span class="m-val" id="profile-limit">₹0.00</span>
+              </div>
+              <div class="meta-item">
+                <span class="m-lbl">Withdrawn Today</span>
+                <span class="m-val" id="profile-withdrawn-today">₹0.00</span>
+              </div>
+              <div class="meta-item">
+                <span class="m-lbl">Remaining Limit Today</span>
+                <span class="m-val highlight-amber" id="profile-remaining-today">₹0.00</span>
+              </div>
+              <div class="meta-item">
+                <span class="m-lbl">Account Status</span>
+                <span class="badge badge-active" id="profile-status">ACTIVE</span>
+              </div>
+            </div>
+
+            <!-- Passbook Transaction History Table -->
+            <div class="transactions-section">
+              <div class="trans-header">
+                <h4>Passbook / Transaction History</h4>
+                <button type="button" class="btn-sm" onclick="printStatement()">Print / Save Statement</button>
+              </div>
+
+              <div class="table-container">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Tx ID</th>
+                      <th>Date & Time</th>
+                      <th>Type</th>
+                      <th>Amount (₹)</th>
+                      <th>Balance After (₹)</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody id="transaction-rows">
+                    <tr><td colspan="6" class="text-center">No transactions recorded yet.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 7: ACCOUNTS DIRECTORY (DBMS View) -->
+      <section id="tab-directory" class="tab-pane">
+        <div class="card">
+          <div class="card-header flex-between">
+            <div>
+              <h3>Database Accounts Directory (DBMS Ledger)</h3>
+              <p>Live view of all accounts retrieved via JDBC from the database.</p>
+            </div>
+            <button class="btn btn-secondary" onclick="loadAccountsDirectory()">🔄 Refresh Directory</button>
+          </div>
+
+          <div class="search-bar-row">
+            <input type="text" id="dir-search" placeholder="Search by name, account number, or type..." oninput="filterAccountsDirectory()">
+          </div>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Account Number</th>
+                  <th>Holder Name</th>
+                  <th>Type</th>
+                  <th>Balance (₹)</th>
+                  <th>Daily Limit (₹)</th>
+                  <th>Withdrawn Today (₹)</th>
+                  <th>Remaining Today (₹)</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="directory-rows">
+                <tr><td colspan="9" class="text-center">Loading accounts from JDBC database...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

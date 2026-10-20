@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: com.bank.Main
+Class-Path: lib/flatlaf.jar lib/sqlite-jdbc.jar lib/mysql-connector-j.jar lib/slf4j-api.jar lib/slf4j-simple.jar
+
